@@ -320,7 +320,33 @@ class GeminiAgent:
                             },
                             required=["fact"]
                         )
-                    )
+                    ),
+                    genai.protos.FunctionDeclaration( 
+                        name="forget",
+                        description="Searches for and optionally removes semantically similar memories from the agent's long-term memory.",
+                        parameters=genai.protos.Schema(
+                            type=genai.protos.Type.OBJECT,
+                            properties={
+                                "fact": genai.protos.Schema(
+                                    type=genai.protos.Type.STRING,
+                                    description="The fact to forget; similar memories will be searched based on this input."
+                                ),
+                                "confirm": genai.protos.Schema(
+                                    type=genai.protos.Type.BOOLEAN,
+                                    description="If true, confirms and deletes matched memories. If false, just previews matches."
+                                ),
+                                "similarity_threshold": genai.protos.Schema(
+                                    type=genai.protos.Type.NUMBER,
+                                    description="Optional similarity threshold (0.0 - 1.0) for matching memories (default: 0.85)."
+                                ),
+                                "top_n": genai.protos.Schema(
+                                    type=genai.protos.Type.INTEGER,
+                                    description="Optional number of top similar memories to consider for deletion (default: 3)."
+                                )
+                            },
+                            required=["fact"]
+                        )
+                    ) 
                 ]
             )
         ]
@@ -350,6 +376,7 @@ class GeminiAgent:
             "fetch_url_content": web_fetcher.fetch_url_content,
             # Memory Tool
             "remember_fact": self.memory.remember,
+            "forget": self.memory.forget
         }
 
     def execute_function_call(self, function_call):
