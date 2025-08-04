@@ -41,7 +41,7 @@ All model configs live in the `configs` directory. If you want to:
 * Set a custom path for your ChromaDB storage
 
 
-### 🔐 Environment Variables
+### Environment Variables
 
 **Don’t hardcode your API keys, please.** Use environment variables.
 
