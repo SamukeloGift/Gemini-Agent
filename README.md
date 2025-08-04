@@ -23,7 +23,7 @@ You: I like Python
 Gets stored in ChromaDB as:
 
 ```
-Bot: User prefers Python language
+User prefers Python language
 ```
 
 So later on, if you ask something like “what language should I use for X?”, the model will already know you lean Python and tailor its response accordingly.
