@@ -1,0 +1,15 @@
+
+# Local memory storage
+.chroma_db/
+.env
+./venv/
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+/agent/__pycache__/
+/agent/*.pyc
+/config/__pycache__/
+/config/*.pyc
+/tools/__pycache__/
+/tools/*.pyc
