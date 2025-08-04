@@ -28,7 +28,7 @@ User prefers Python language
 
 So later on, if you ask something like “what language should I use for X?”, the model will already know you lean Python and tailor its response accordingly.
 
-This setup works, but yeah—it’s slower because I have to manually load the saved memory each time. Planning to optimize that eventually (when I feel like it).
+This setup works, but yeah—it’s slower because I have to manually load the saved memory each time. I’ll fix it when I’m not busy procrastinating other things.
 
 ---
 
@@ -39,6 +39,19 @@ All model configs live in the `configs` directory. If you want to:
 * Switch the model being used
 * Change how many tokens it spits out
 * Set a custom path for your ChromaDB storage
+
+
+### 🔐 Environment Variables
+
+**Don’t hardcode your API keys, please.** Use environment variables.
+
+* Your Gemini API key should be stored as: `GEMINI_API_KEY`
+* You can set it in a `.env` file (using  `python-dotenv`)
+* Or have it in your `.zshrc` / `.bashrc` if you roll that way
+
+Go check `configs/settings.py` for the full list of variables the app expects.
+
+
 
 …you’ll find all that there. By default, ChromaDB saves in the parent directory and is Git-ignored (because it can blow past 50MB real quick).
 
