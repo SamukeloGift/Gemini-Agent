@@ -5,6 +5,7 @@ from config.settings import config
 from tools import file_system, mysql_tools, system, web_fetcher
 from tools.memory_manager import MemoryManager
 
+
 class GeminiAgent:
     def __init__(self):
         self.console = Console()
@@ -31,10 +32,10 @@ class GeminiAgent:
                             properties={
                                 "days_threshold": genai.protos.Schema(
                                     type=genai.protos.Type.INTEGER,
-                                    description="Only show files older than this many days (default: 10)"
+                                    description="Only show files older than this many days (default: 10)",
                                 )
-                            }
-                        )
+                            },
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="clean_old_trash_files",
@@ -44,15 +45,15 @@ class GeminiAgent:
                             properties={
                                 "days_threshold": genai.protos.Schema(
                                     type=genai.protos.Type.INTEGER,
-                                    description="Delete files older than this many days"
+                                    description="Delete files older than this many days",
                                 ),
                                 "confirm": genai.protos.Schema(
                                     type=genai.protos.Type.BOOLEAN,
-                                    description="Whether to ask for confirmation (default: true)"
-                                )
+                                    description="Whether to ask for confirmation (default: true)",
+                                ),
                             },
-                            required=["days_threshold"]
-                        )
+                            required=["days_threshold"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="read_file_content",
@@ -62,15 +63,15 @@ class GeminiAgent:
                             properties={
                                 "file_path": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Path to the file to read (supports ~ for home directory)"
+                                    description="Path to the file to read (supports ~ for home directory)",
                                 ),
                                 "max_lines": genai.protos.Schema(
                                     type=genai.protos.Type.INTEGER,
-                                    description="Maximum number of lines to read (default: 500)"
-                                )
+                                    description="Maximum number of lines to read (default: 500)",
+                                ),
                             },
-                            required=["file_path"]
-                        )
+                            required=["file_path"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="write_file_content",
@@ -80,19 +81,19 @@ class GeminiAgent:
                             properties={
                                 "file_path": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Path where to write the file"
+                                    description="Path where to write the file",
                                 ),
                                 "content": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Content to write to the file"
+                                    description="Content to write to the file",
                                 ),
                                 "backup": genai.protos.Schema(
                                     type=genai.protos.Type.BOOLEAN,
-                                    description="Create backup of existing file (default: true)"
-                                )
+                                    description="Create backup of existing file (default: true)",
+                                ),
                             },
-                            required=["file_path", "content"]
-                        )
+                            required=["file_path", "content"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="list_directory_contents",
@@ -102,14 +103,14 @@ class GeminiAgent:
                             properties={
                                 "dir_path": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Directory path to list (default: current directory)"
+                                    description="Directory path to list (default: current directory)",
                                 ),
                                 "show_hidden": genai.protos.Schema(
                                     type=genai.protos.Type.BOOLEAN,
-                                    description="Show hidden files starting with . (default: false)"
-                                )
-                            }
-                        )
+                                    description="Show hidden files starting with . (default: false)",
+                                ),
+                            },
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="find_files",
@@ -119,15 +120,15 @@ class GeminiAgent:
                             properties={
                                 "pattern": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The glob pattern to match (e.g., '**/*.py')"
+                                    description="The glob pattern to match (e.g., '**/*.py')",
                                 ),
                                 "base_path": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The base path to search from (default: current directory)"
-                                )
+                                    description="The base path to search from (default: current directory)",
+                                ),
                             },
-                            required=["pattern"]
-                        )
+                            required=["pattern"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="search_text",
@@ -137,19 +138,19 @@ class GeminiAgent:
                             properties={
                                 "pattern": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The text pattern to search for (can be a regex)."
+                                    description="The text pattern to search for (can be a regex).",
                                 ),
                                 "file_pattern": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The glob pattern for files to search (e.g., '**/*.py')."
+                                    description="The glob pattern for files to search (e.g., '**/*.py').",
                                 ),
                                 "base_path": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The base path to search from (default: current directory)."
-                                )
+                                    description="The base path to search from (default: current directory).",
+                                ),
                             },
-                            required=["pattern", "file_pattern"]
-                        )
+                            required=["pattern", "file_pattern"],
+                        ),
                     ),
                     # sqldb Tools
                     genai.protos.FunctionDeclaration(
@@ -160,15 +161,15 @@ class GeminiAgent:
                             properties={
                                 "database_name": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Name of the MySQL database to create"
+                                    description="Name of the MySQL database to create",
                                 ),
                                 "description": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Description of the database purpose"
-                                )
+                                    description="Description of the database purpose",
+                                ),
                             },
-                            required=["database_name"]
-                        )
+                            required=["database_name"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="execute_mysql_command",
@@ -178,19 +179,19 @@ class GeminiAgent:
                             properties={
                                 "database_name": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Name of the MySQL database"
+                                    description="Name of the MySQL database",
                                 ),
                                 "sql_command": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="SQL command(s) to execute"
+                                    description="SQL command(s) to execute",
                                 ),
                                 "save_to_file": genai.protos.Schema(
                                     type=genai.protos.Type.BOOLEAN,
-                                    description="Whether to save commands to .sql file (default: true)"
-                                )
+                                    description="Whether to save commands to .sql file (default: true)",
+                                ),
                             },
-                            required=["database_name", "sql_command"]
-                        )
+                            required=["database_name", "sql_command"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="analyze_mysql_database_structure",
@@ -200,28 +201,26 @@ class GeminiAgent:
                             properties={
                                 "database_name": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Name of the MySQL database to analyze"
+                                    description="Name of the MySQL database to analyze",
                                 )
                             },
-                            required=["database_name"]
-                        )
+                            required=["database_name"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="list_mysql_databases",
                         description="List all MySQL databases with metadata",
                         parameters=genai.protos.Schema(
-                            type=genai.protos.Type.OBJECT,
-                            properties={}
-                        )
+                            type=genai.protos.Type.OBJECT, properties={}
+                        ),
                     ),
                     # System Tools
                     genai.protos.FunctionDeclaration(
                         name="get_system_info",
                         description="Get current system information including platform, resources, and user details",
                         parameters=genai.protos.Schema(
-                            type=genai.protos.Type.OBJECT,
-                            properties={}
-                        )
+                            type=genai.protos.Type.OBJECT, properties={}
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="run_python_script",
@@ -231,15 +230,15 @@ class GeminiAgent:
                             properties={
                                 "script_path": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Path to the Python script to execute"
+                                    description="Path to the Python script to execute",
                                 ),
                                 "timeout": genai.protos.Schema(
                                     type=genai.protos.Type.INTEGER,
-                                    description="Maximum execution time in seconds (default: 30)"
-                                )
+                                    description="Maximum execution time in seconds (default: 30)",
+                                ),
                             },
-                            required=["script_path"]
-                        )
+                            required=["script_path"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="analyze_python_code",
@@ -249,11 +248,11 @@ class GeminiAgent:
                             properties={
                                 "file_path": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Path to the Python file to analyze"
+                                    description="Path to the Python file to analyze",
                                 )
                             },
-                            required=["file_path"]
-                        )
+                            required=["file_path"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="send_system_notification",
@@ -263,15 +262,15 @@ class GeminiAgent:
                             properties={
                                 "message": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Notification message content"
+                                    description="Notification message content",
                                 ),
                                 "title": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="Notification title (default: 'System Agent')"
-                                )
+                                    description="Notification title (default: 'System Agent')",
+                                ),
                             },
-                            required=["message"]
-                        )
+                            required=["message"],
+                        ),
                     ),
                     genai.protos.FunctionDeclaration(
                         name="execute_cli_command",
@@ -281,15 +280,15 @@ class GeminiAgent:
                             properties={
                                 "command": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The command to execute"
+                                    description="The command to execute",
                                 ),
                                 "timeout": genai.protos.Schema(
                                     type=genai.protos.Type.INTEGER,
-                                    description="Maximum execution time in seconds (default: 30)"
-                                )
+                                    description="Maximum execution time in seconds (default: 30)",
+                                ),
                             },
-                            required=["command"]
-                        )
+                            required=["command"],
+                        ),
                     ),
                     # Web Functions
                     genai.protos.FunctionDeclaration(
@@ -300,11 +299,11 @@ class GeminiAgent:
                             properties={
                                 "url": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The URL to fetch content from."
+                                    description="The URL to fetch content from.",
                                 )
                             },
-                            required=["url"]
-                        )
+                            required=["url"],
+                        ),
                     ),
                     # Memory Tool
                     genai.protos.FunctionDeclaration(
@@ -315,13 +314,13 @@ class GeminiAgent:
                             properties={
                                 "fact": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The fact to be remembered."
+                                    description="The fact to be remembered.",
                                 )
                             },
-                            required=["fact"]
-                        )
+                            required=["fact"],
+                        ),
                     ),
-                    genai.protos.FunctionDeclaration( 
+                    genai.protos.FunctionDeclaration(
                         name="forget",
                         description="Searches for and optionally removes semantically similar memories from the agent's long-term memory.",
                         parameters=genai.protos.Schema(
@@ -329,24 +328,24 @@ class GeminiAgent:
                             properties={
                                 "fact": genai.protos.Schema(
                                     type=genai.protos.Type.STRING,
-                                    description="The fact to forget; similar memories will be searched based on this input."
+                                    description="The fact to forget; similar memories will be searched based on this input.",
                                 ),
                                 "confirm": genai.protos.Schema(
                                     type=genai.protos.Type.BOOLEAN,
-                                    description="If true, confirms and deletes matched memories. If false, just previews matches."
+                                    description="If true, confirms and deletes matched memories. If false, just previews matches.",
                                 ),
                                 "similarity_threshold": genai.protos.Schema(
                                     type=genai.protos.Type.NUMBER,
-                                    description="Optional similarity threshold (0.0 - 1.0) for matching memories (default: 0.85)."
+                                    description="Optional similarity threshold (0.0 - 1.0) for matching memories (default: 0.85).",
                                 ),
                                 "top_n": genai.protos.Schema(
                                     type=genai.protos.Type.INTEGER,
-                                    description="Optional number of top similar memories to consider for deletion (default: 3)."
-                                )
+                                    description="Optional number of top similar memories to consider for deletion (default: 3).",
+                                ),
                             },
-                            required=["fact"]
-                        )
-                    ) 
+                            required=["fact"],
+                        ),
+                    ),
                 ]
             )
         ]
@@ -376,7 +375,7 @@ class GeminiAgent:
             "fetch_url_content": web_fetcher.fetch_url_content,
             # Memory Tool
             "remember_fact": self.memory.remember,
-            "forget": self.memory.forget
+            "forget": self.memory.forget,
         }
 
     def execute_function_call(self, function_call):
@@ -397,15 +396,29 @@ class GeminiAgent:
 
     def run(self):
         self.console.print("[bold cyan]AICOOK - Your Personal AI Assistant[/bold cyan]")
-        self.history.append({"role": "user", "parts": ["You are an AI assistant with memory capabilities."]})
-        self.history.append({"role": "model", "parts": ["I am AICOOK, your personal AI assistant. I can learn from our interactions. How can I help you today?"]})
-        
+        self.history.append(
+            {
+                "role": "user",
+                "parts": ["You are an AI assistant with memory capabilities."],
+            }
+        )
+        self.history.append(
+            {
+                "role": "model",
+                "parts": [
+                    "I am AICOOK, your personal AI assistant. I can learn from our interactions. How can I help you today?"
+                ],
+            }
+        )
+
         while True:
             try:
                 user_input = self.console.input("\n[bold blue]You:[/bold blue] ")
 
-                if user_input.lower() in ['quit', 'exit', 'bye']:
-                    self.console.print("\n[yellow]AICOOK shutting down safely. Goodbye![/yellow]")
+                if user_input.lower() in ["quit", "exit", "bye"]:
+                    self.console.print(
+                        "\n[yellow]AICOOK shutting down safely. Goodbye![/yellow]"
+                    )
                     break
 
                 if not user_input.strip():
@@ -415,7 +428,12 @@ class GeminiAgent:
                 recalled_memories = self.memory.recall(user_input)
                 if recalled_memories:
                     memory_context = "\n".join(recalled_memories)
-                    self.history.append({"role": "user", "parts": [f"Relevant memories:\n{memory_context}"]})
+                    self.history.append(
+                        {
+                            "role": "user",
+                            "parts": [f"Relevant memories:\n{memory_context}"],
+                        }
+                    )
 
                 self.history.append({"role": "user", "parts": [user_input]})
                 self.console.print("\n[bold green]AICOOK processing...[/bold green]")
@@ -427,43 +445,61 @@ class GeminiAgent:
                 while iteration < config.MAX_ITERATIONS:
                     iteration += 1
 
-                    response = self.model.generate_content(self.history, tools=self.tools)
+                    response = self.model.generate_content(
+                        self.history, tools=self.tools
+                    )
                     has_function_calls = False
                     response_part = response.candidates[0].content.parts
                     if response_part:
                         for part in response_part:
-                            if hasattr(part, 'function_call') and part.function_call:
+                            if hasattr(part, "function_call") and part.function_call:
                                 has_function_calls = True
-                                self.console.print(f"[dim]Operation {iteration}: System function execution...[/dim]")
+                                self.console.print(
+                                    f"[dim]Operation {iteration}: System function execution...[/dim]"
+                                )
 
-                                function_result = self.execute_function_call(part.function_call)
+                                function_result = self.execute_function_call(
+                                    part.function_call
+                                )
 
                                 self.history.append({"role": "model", "parts": [part]})
-                                self.history.append({
-                                    "role": "function",
-                                    "parts": [
-                                        genai.protos.Part(
-                                            function_response=genai.protos.FunctionResponse(
-                                                name=part.function_call.name,
-                                                response={"result": function_result}
+                                self.history.append(
+                                    {
+                                        "role": "function",
+                                        "parts": [
+                                            genai.protos.Part(
+                                                function_response=genai.protos.FunctionResponse(
+                                                    name=part.function_call.name,
+                                                    response={
+                                                        "result": function_result
+                                                    },
+                                                )
                                             )
-                                        )
-                                    ]
-                                })
+                                        ],
+                                    }
+                                )
 
-                            elif hasattr(part, 'text') and part.text:
-                                self.console.print(f"\n[bold green] System Agent:[/bold green]")
+                            elif hasattr(part, "text") and part.text:
+                                self.console.print(
+                                    f"\n[bold green] System Agent:[/bold green]"
+                                )
                                 self.console.print(Markdown(part.text))
-                                self.history.append({"role": "model", "parts": [part.text]})
+                                self.history.append(
+                                    {"role": "model", "parts": [part.text]}
+                                )
 
                     if not has_function_calls:
                         break
 
                 if iteration >= config.MAX_ITERATIONS:
-                    self.console.print("\n[yellow] System Agent reached operation limit[/yellow]")
+                    self.console.print(
+                        "\n[yellow] System Agent reached operation limit[/yellow]"
+                    )
 
             except KeyboardInterrupt:
-                self.console.print("\n[yellow] System Agent interrupted safely. Goodbye![/yellow]")
+                self.console.print(
+                    "\n[yellow] System Agent interrupted safely. Goodbye![/yellow]"
+                )
                 break
             except Exception as e:
                 self.console.print(f"\n[red]System Agent error: {str(e)}[/red]")
