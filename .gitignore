@@ -1,5 +1,6 @@
 
 # Local memory storage
+venv
 .chroma_db/
 .env
 ./venv/
