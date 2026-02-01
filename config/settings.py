@@ -9,7 +9,7 @@ class AgentConfig:
 
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
     if not GEMINI_API_KEY:
-        print("⚠️  GEMINI_API_KEY not found!")
+        print("GEMINI_API_KEY not found!")
         print("Please create a .env file in your project root with:")
         print("GEMINI_API_KEY=your_api_key_here")
         print("Or set it as an environment variable.")
@@ -26,7 +26,7 @@ class AgentConfig:
     MAX_TOKENS = int(os.getenv("MAX_TOKENS", 2048))
     MAX_ITERATIONS = int(
         os.getenv("MAX_ITERATIONS", 15)
-    )  # Reduce from 15 to a lower num for fast & less responses..
+    )  
 
     # Set ENABLE_MEMORY=true in your environment to activate it.
     # switched off due to slownesss..
@@ -37,8 +37,3 @@ class AgentConfig:
 
 
 config = AgentConfig()
-
-# print("--- Agent Configuration ---")
-# print(f"Model: {config.MODEL_NAME}")
-# print(f"Memory Enabled: {config.ENABLE_MEMORY}")
-# print("-------------------------")
