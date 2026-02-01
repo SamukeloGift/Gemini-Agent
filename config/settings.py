@@ -18,6 +18,8 @@ class AgentConfig:
     MODEL_NAME = {
         "2.5-pro": "models/gemini-2.5-pro",
         "2.5-flash": "models/gemini-2.5-flash",
+        "3.0-pro": "gemini-3-pro-preview", # The 3.0 Models haven't been tested.
+        "3.0-flash": "gemini-3-flash-preview"
     }.get(_MODEL_CHOICE, "models/gemini-2.5-flash-preview-05-20")  # Default flash
 
     TEMPERATURE = float(os.getenv("TEMPERATURE", 0.7))
